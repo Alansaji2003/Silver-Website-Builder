@@ -1,0 +1,17 @@
+# This is a config for E2B sandbox template.
+# You can use template ID (oej4gcyjml0prk2mrue6) or template name (silver-nextjs) to create a sandbox:
+
+# Python SDK
+# from e2b import Sandbox, AsyncSandbox
+# sandbox = Sandbox.create("silver-nextjs") # Sync sandbox
+# sandbox = await AsyncSandbox.create("silver-nextjs") # Async sandbox
+
+# JS SDK
+# import { Sandbox } from 'e2b'
+# const sandbox = await Sandbox.create('silver-nextjs')
+
+team_id = "b07dc038-02b7-4a82-b91a-eb6978a66fa4"
+start_cmd = "/compile_page.sh"
+dockerfile = "e2b.Dockerfile"
+template_name = "silver-nextjs"
+template_id = "oej4gcyjml0prk2mrue6"
