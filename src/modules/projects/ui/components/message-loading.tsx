@@ -4,14 +4,18 @@ import { useState, useEffect } from "react";
 const ShimmerMessages = () => {
     const messages = [
         "Thinking..",
-        "Loading...",
-        "Generating...",
-        "Processing...",
-        "Analyzing...",
-        "Optimizing...",
-        "Refining...",
-        "Polishing...",
-        "Finalizing...",
+        "Building your website...",
+        "Generating files...",
+        "Processing logic...",
+        "Analyzing your website...",
+        "Optimizing the UI...",
+        "Alan likes to have fun...",
+        "Refining the design...",
+        "Polishing the website...",
+        "just a bit more...",
+        "have some coffee...",
+        "Wow.. You are patient...",
+
     ];
 
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
