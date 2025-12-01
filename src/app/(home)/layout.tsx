@@ -1,12 +1,14 @@
+import { HomeBackground } from "@/modules/home/ui/components/home-background";
+
 interface Props {
     children: React.ReactNode;
 }
 
 const Layout = ({ children }: Props) => {
     return (
-        <main className="flex flec-col min-h-screen max-h-screen">
-            <div className="absolute inset-0 -z-10 h-full w-full bg-background dark:bg-[radial-gradient(#393e4a_1px,transparent_1px)] bg-[radial-gradient(#dadde2_1px,transparent_1px)] [background-size:16px_16px]" />
-            <div className="flex-1 flex flex-col px-4 pb-4">
+        <main className="flex flex-col h-full overflow-hidden">
+            <HomeBackground />
+            <div className="flex-1 flex flex-col px-4 pb-4 overflow-y-auto overflow-x-hidden">
 
                 {children}
             </div>

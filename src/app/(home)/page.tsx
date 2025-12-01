@@ -15,10 +15,10 @@ const Page = () => {
           />
         </div>
         <h1 className="text-2xl md:text-5xl font-bold text-center">
-          Make shiny websites with Silver
+          Make shiny websites with Silver.ai
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground text-center">
-          Create stunning websites with Silver, the ultimate website builder!
+          Create stunning websites with Silver, the ultimate AI website builder!
         </p>
         <div className="max-w-3xl mx-auto w-full">
           <ProjectForm />
