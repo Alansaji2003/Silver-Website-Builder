@@ -18,11 +18,14 @@ import Link from "next/link";
 
 import { FileExplorer } from "@/components/file-explorer";
 import { UserControl } from "@/components/user-control";
+import { useAuth } from "@clerk/nextjs";
 
 interface Props {
     projectId: string;
 };
 export const ProjectView = ({ projectId }: Props) => {
+    const { has } = useAuth();
+    const hasPremiumAccess = has?.({ plan: "pro" })
     const trpc = useTRPC();
     const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
     const [tabState, setTabState] = useState<"preview" | "code">("preview");
@@ -65,15 +68,17 @@ export const ProjectView = ({ projectId }: Props) => {
                                 <TabsTrigger value="code"> <CodeIcon /><span>Code</span></TabsTrigger>
                             </TabsList>
                             <div className="ml-auto flex items-center gap-x-2">
-                                <Button asChild size="sm" variant="tertiary">
-                                    <Link
-                                        href="/pricing"
-                                    >
+                                {!hasPremiumAccess && (
+                                    <Button asChild size="sm" variant="tertiary">
+                                        <Link
+                                            href="/pricing"
+                                        >
 
-                                        <CrownIcon />Upgrade
+                                            <CrownIcon />Upgrade
 
-                                    </Link>
-                                </Button>
+                                        </Link>
+                                    </Button>
+                                )}
                                 <UserControl />
                             </div>
 
