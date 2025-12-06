@@ -1,20 +1,21 @@
-import {Sandbox} from "@e2b/code-interpreter";
+import { Sandbox } from "@e2b/code-interpreter";
 import { AgentResult, TextMessage } from "@inngest/agent-kit";
 
-export async function getSandBox(sandBoxId:string){
+export async function getSandBox(sandBoxId: string) {
     const sandbox = await Sandbox.connect(sandBoxId);
+    await sandbox.setTimeout(60_000 * 10);
     return sandbox;
 }
 
-export function lastAssistantTextMessageContent(result: AgentResult){
+export function lastAssistantTextMessageContent(result: AgentResult) {
     const lastAssistantTextMessageIndex = result.output.findLastIndex(
         (message) => message.role === "assistant",
     )
-    const message  = result.output[lastAssistantTextMessageIndex] as | TextMessage | undefined;
+    const message = result.output[lastAssistantTextMessageIndex] as | TextMessage | undefined;
 
     return message?.content
         ? typeof message.content === "string"
-        ? message.content
-        : message.content.map((c) => c.text).join("")
+            ? message.content
+            : message.content.map((c) => c.text).join("")
         : undefined;
 }

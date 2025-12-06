@@ -18,6 +18,7 @@ export const codeAgent = inngest.createFunction(
   async ({ event, step }) => {
     const { sandBoxId, files } = await step.run("get-sandbox-id", async () => {
       const sandbox = await Sandbox.create("silver-nextjs");
+      await sandbox.setTimeout(60_000 * 10);
 
       // Find the latest fragment to hydrate the sandbox
       const lastFragment = await prisma.fragment.findFirst({
@@ -52,7 +53,8 @@ export const codeAgent = inngest.createFunction(
         },
         orderBy: {
           createdAt: "desc"
-        }
+        },
+        take: 5,
       })
       for (const message of messages) {
         formattedMessages.push({
@@ -61,7 +63,7 @@ export const codeAgent = inngest.createFunction(
           content: message.content,
         })
       }
-      return formattedMessages;
+      return formattedMessages.reverse();
     });
 
     const state = createState<AgentState>({
