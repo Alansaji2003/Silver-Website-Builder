@@ -42,7 +42,7 @@ export const ProjectView = ({ projectId }: Props) => {
 
     if (isMobile) {
         return (
-            <div className="h-screen flex flex-col relative pt-0.1">
+            <div className="h-screen flex flex-col relative pt-10">
                 {mobileView === "chat" ? (
                     <div className="flex flex-col h-full">
                         <ErrorBoundary fallback={<div>Failed to load project details</div>}>
