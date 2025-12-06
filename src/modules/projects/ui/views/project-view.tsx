@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/resizable"
 import { MessagesContainer } from "../components/messages-container";
 import { Suspense, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Fragment } from "@/generated/prisma";
 import { ProjectHeader } from "../components/project-header";
 import { FragmentWeb } from "../components/fragment-web";
@@ -37,15 +38,19 @@ export const ProjectView = ({ projectId }: Props) => {
                     defaultSize={35}
                     minSize={20}
                     className="flex flex-col min-h-0">
-                    <Suspense fallback={<div>Loading Project...</div>}>
-                        <ProjectHeader projectId={projectId} />
-                    </Suspense>
-                    <Suspense fallback={<div>Loading Messages...</div>}>
-                        <MessagesContainer projectId={projectId}
-                            activeFragment={activeFragment}
-                            setActiveFragment={setActiveFragment}
-                        />
-                    </Suspense>
+                    <ErrorBoundary fallback={<div>Failed to load project details</div>}>
+                        <Suspense fallback={<div>Loading Project...</div>}>
+                            <ProjectHeader projectId={projectId} />
+                        </Suspense>
+                    </ErrorBoundary>
+                    <ErrorBoundary fallback={<div>Failed to load messages</div>}>
+                        <Suspense fallback={<div>Loading Messages...</div>}>
+                            <MessagesContainer projectId={projectId}
+                                activeFragment={activeFragment}
+                                setActiveFragment={setActiveFragment}
+                            />
+                        </Suspense>
+                    </ErrorBoundary>
 
                 </ResizablePanel>
                 <ResizableHandle withHandle />
