@@ -1,8 +1,9 @@
 import { Fragment } from "@/generated/prisma";
-import { ExternalLinkIcon, RefreshCcwIcon } from "lucide-react";
+import { ExternalLinkIcon, RefreshCcwIcon, CopyIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Hint } from "@/components/hint";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Props {
     data: Fragment;
@@ -12,6 +13,7 @@ export const FragmentWeb = ({ data }: Props) => {
 
     const [fragmentKey, setFragmentKey] = useState(0);
     const [copied, setCopied] = useState(false);
+    const isMobile = useIsMobile();
 
     const onRefresh = () => {
         setFragmentKey((prev) => prev + 1);
@@ -38,7 +40,7 @@ export const FragmentWeb = ({ data }: Props) => {
                         disabled={!data.sandboxUrl || copied}
 
                         className="flex-1 justify-start text-start font-normal">
-                        <span className="truncate">{data.sandboxUrl}</span>
+                        {isMobile ? <CopyIcon className="w-4 h-4" /> : <span className="truncate">{data.sandboxUrl}</span>}
                     </Button>
                 </Hint>
 

@@ -1,9 +1,10 @@
-import { CopyCheckIcon, CopyIcon } from "lucide-react";
-import { useState, useMemo, useCallback, Fragment } from "react";
+import { CopyCheckIcon, CopyIcon, ChevronLeftIcon } from "lucide-react";
+import { useState, useMemo, useCallback, Fragment, useEffect } from "react";
 
 import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
 import { CodeView } from "./code-view";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import {
     ResizablePanelGroup,
@@ -102,6 +103,14 @@ export const FileExplorer = ({ files }: FileExplorerProps) => {
         const fileKeys = Object.keys(files);
         return fileKeys.length > 0 ? fileKeys[0] : null;
     });
+    const isMobile = useIsMobile();
+    const [mobileView, setMobileView] = useState<"tree" | "code">("tree");
+
+    useEffect(() => {
+        if (!isMobile) {
+            setMobileView("tree");
+        }
+    }, [isMobile]);
 
     const treeData = useMemo(() => {
         return convertFilesToTree(files);
@@ -110,8 +119,11 @@ export const FileExplorer = ({ files }: FileExplorerProps) => {
     const handleFileSelect = useCallback((filepath: string) => {
         if (files[filepath]) {
             setSelectedFile(filepath);
+            if (isMobile) {
+                setMobileView("code");
+            }
         }
-    }, [files]);
+    }, [files, isMobile]);
     const handleCopy = () => {
         if (selectedFile) {
             navigator.clipboard.writeText(files[selectedFile]);
@@ -121,6 +133,49 @@ export const FileExplorer = ({ files }: FileExplorerProps) => {
             }, 2000);
         }
     }
+    if (isMobile) {
+        if (mobileView === "tree") {
+            return (
+                <div className="h-full w-full bg-sidebar">
+                    <TreeView
+                        data={treeData}
+                        value={selectedFile}
+                        onSelect={handleFileSelect}
+                    />
+                </div>
+            )
+        } else {
+            return (
+                <div className="h-full w-full flex flex-col ">
+                    <div className="border-b bg-sidebar px-4 py-2 flex items-center gap-x-2">
+                        <Button size="icon" variant="ghost" onClick={() => setMobileView("tree")}>
+                            <ChevronLeftIcon />
+                        </Button>
+                        {selectedFile && <FileBreadCrumb filepath={selectedFile} />}
+                        <Hint text="copy to clipboard" side="bottom" align="start">
+                            <Button variant="outline"
+                                size="icon" className="ml-auto "
+                                onClick={handleCopy}
+                                disabled={copied}
+                            >
+                                {copied ? <CopyCheckIcon /> : <CopyIcon />}
+                            </Button>
+                        </Hint>
+                    </div>
+                    <div className="flex-1 overflow-auto">
+                        {selectedFile && files[selectedFile] ? (
+                            <CodeView code={files[selectedFile]} lang={getLanguageFromExtention(selectedFile)} />
+                        ) : (
+                            <div className="flex h-full items-center justify-center text-muted-foreground">
+                                Select a file to view it&apos;s code
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )
+        }
+    }
+
     return (
         <ResizablePanelGroup direction="horizontal">
             <ResizablePanel

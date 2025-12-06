@@ -11,9 +11,10 @@ interface Props {
     projectId: string;
     activeFragment: Fragment | null;
     setActiveFragment: (fragment: Fragment | null) => void;
+    onMessageReceived?: () => void;
 };
 
-export const MessagesContainer = ({ projectId, activeFragment, setActiveFragment }: Props) => {
+export const MessagesContainer = ({ projectId, activeFragment, setActiveFragment, onMessageReceived }: Props) => {
     const bottomRef = useRef<HTMLDivElement>(null);
     const lastAssistantMessageIdRef = useRef<string | null>(null);
 
@@ -32,8 +33,9 @@ export const MessagesContainer = ({ projectId, activeFragment, setActiveFragment
         if (lastAssistantMessage?.fragment && lastAssistantMessage.id !== lastAssistantMessageIdRef.current) {
             setActiveFragment(lastAssistantMessage.fragment);
             lastAssistantMessageIdRef.current = lastAssistantMessage.id;
+            onMessageReceived?.();
         }
-    }, [messages, setActiveFragment])
+    }, [messages, setActiveFragment, onMessageReceived])
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView();
