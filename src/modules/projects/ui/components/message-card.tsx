@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import Image from "next/image";
-import { is } from "date-fns/locale";
 import { ChevronRightIcon, Code2Icon } from "lucide-react";
 
 interface UserMessageProps {

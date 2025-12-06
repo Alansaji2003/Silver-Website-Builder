@@ -10,7 +10,6 @@ import {
     SidebarContent,
     SidebarMenu,
     SidebarMenuItem,
-    SidebarTrigger,
     SidebarGroup,
     SidebarMenuButton,
     SidebarGroupContent,
@@ -48,8 +47,8 @@ export const TreeView = ({ data, value, onSelect }: TreeViewProps) => {
                     </SidebarGroup>
                 </SidebarContent>
                 <SidebarRail />
-            </Sidebar>
-        </SidebarProvider>
+            </Sidebar >
+        </SidebarProvider >
     );
 };
 interface TreeProps {

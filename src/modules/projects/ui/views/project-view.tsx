@@ -1,6 +1,6 @@
 "use client";
 
-import { useTRPC } from "@/trpc/client";
+
 import {
     ResizableHandle,
     ResizablePanel,
@@ -27,7 +27,6 @@ interface Props {
 export const ProjectView = ({ projectId }: Props) => {
     const { has } = useAuth();
     const hasPremiumAccess = has?.({ plan: "pro" })
-    const trpc = useTRPC();
     const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
     const [tabState, setTabState] = useState<"preview" | "code">("preview");
 
@@ -101,8 +100,8 @@ export const ProjectView = ({ projectId }: Props) => {
 
                 </ResizablePanel>
 
-            </ResizablePanelGroup>
+            </ResizablePanelGroup >
 
-        </div>
+        </div >
     )
 }

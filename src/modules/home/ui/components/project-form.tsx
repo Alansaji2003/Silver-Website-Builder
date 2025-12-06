@@ -5,7 +5,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { useTRPC } from "@/trpc/client";
 import { Button } from "@/components/ui/button";

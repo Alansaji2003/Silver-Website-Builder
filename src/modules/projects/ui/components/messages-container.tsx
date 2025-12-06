@@ -33,7 +33,7 @@ export const MessagesContainer = ({ projectId, activeFragment, setActiveFragment
             setActiveFragment(lastAssistantMessage.fragment);
             lastAssistantMessageIdRef.current = lastAssistantMessage.id;
         }
-    }, [messages])
+    }, [messages, setActiveFragment])
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView();

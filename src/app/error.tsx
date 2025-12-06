@@ -22,7 +22,7 @@ export default function ErrorPage({
                     Oops! Something went wrong.
                 </h1>
                 <p className="text-muted-foreground text-lg">
-                    Don't worry, even the best code trips sometimes.
+                    Don&apos;t worry, even the best code trips sometimes.
                 </p>
             </div>
             <div className="flex gap-4">
