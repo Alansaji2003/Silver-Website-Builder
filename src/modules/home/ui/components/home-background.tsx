@@ -16,7 +16,7 @@ export const HomeBackground = () => {
     }
 
     return (
-        <div className="absolute inset-0 -z-10 h-full w-full bg-background dark:bg-[radial-gradient(#393e4a_1px,transparent_1px)] bg-[radial-gradient(#dadde2_1px,transparent_1px)] [background-size:16px_16px]">
+        <div className="absolute inset-0 -z-10 h-full w-full bg-background dark:bg-[radial-gradient(#393e4a_1px,transparent_1px)] bg-[radial-gradient(#dadde2_1px,transparent_1px)] [background-size:16px_16px] overflow-hidden">
             <ShiningDots />
         </div>
     );
@@ -28,8 +28,8 @@ const ShiningDots = () => {
     useEffect(() => {
         const initialDots = Array.from({ length: 20 }).map((_, i) => ({
             id: i,
-            top: `${Math.floor(Math.random() * 100) * 16 + 8}px`,
-            left: `${Math.floor(Math.random() * 100) * 16 + 8}px`,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
             delay: `${Math.random() * 5}s`,
             duration: `${3 + Math.random() * 5}s`
         }));
@@ -41,9 +41,8 @@ const ShiningDots = () => {
             if (dot.id === id) {
                 return {
                     ...dot,
-                    top: `${Math.floor(Math.random() * 100) * 16 + 8}px`,
-                    left: `${Math.floor(Math.random() * 100) * 16 + 8}px`,
-
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
                 };
             }
             return dot;
